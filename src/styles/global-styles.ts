@@ -1,6 +1,27 @@
 import { createGlobalStyle } from 'styled-components';
+import { ThemeType } from './themes/default';
 
-export const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
+    @font-face {
+        font-family: 'latin';
+        src: url(${props =>
+          props.theme.fonts.latin.regular}) format("truetype");
+        font-weight: normal;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'latin';
+        src: url(${props => props.theme.fonts.latin.italic}) format("truetype");
+        font-weight: normal;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: 'latin';
+        src: url(${props =>
+          props.theme.fonts.latin.lightItalic}) format("truetype");
+        font-weight: lighter;
+        font-style: italic;
+      }
   html,
   body {
     height: 100%;
@@ -8,7 +29,8 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: latin;
+    color:${props => props.theme.colors.content}
   }
 
   #root {
