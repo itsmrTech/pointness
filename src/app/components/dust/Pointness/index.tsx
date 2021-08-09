@@ -4,13 +4,16 @@
  *
  */
 import React, { Fragment, memo } from 'react';
-import styled from 'styled-components/macro';
+import styled, { CSSProperties } from 'styled-components/macro';
 
-interface Props {}
+interface Props {
+  style?: CSSProperties;
+  className?: string;
+}
 
 export const Pointness = memo((props: Props) => {
   return (
-    <Container>
+    <Container style={props.style} className={props.className}>
       Point<Span>ness</Span>
     </Container>
   );
