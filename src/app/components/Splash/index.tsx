@@ -35,9 +35,9 @@ const PointnessTitle = styled(Pointness)`
     from {
     }
     to {
-      /* font-size: 20px; */
+      font-size: 50px;
       margin: 0px;
-      transform: translate(-100px, 0px);
+      /* transform: translate(-25px, 0px); */
     }
   }
 `;
@@ -62,14 +62,14 @@ const Div = styled.div`
     to {
       top: 0px;
       left: 0px;
-      transform: scale(0.5) translate(calc(-50% - 30px), -50%);
+      transform: scale(0.5) translate(calc(-50% - 25px), 0%);
     }
   }
 `;
 const Logo = styled.img`
   max-width: 200px;
-  height: auto;
-  animation-name: toNavigation;
+  height: 200px;
+  animation-name: logoToNavigation;
   animation-duration: 2s;
   animation-delay: 2s;
   animation-fill-mode: forwards;
@@ -80,6 +80,8 @@ const Logo = styled.img`
     }
     to {
       max-width: 50px;
+      height: 50px;
+      transform: translate(0px, 20%);
     }
   }
 `;

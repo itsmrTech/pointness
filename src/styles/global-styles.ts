@@ -28,7 +28,7 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
     width: 100%;
   }
 
-  body {
+  body,textarea {
     font-family: latin;
     color:${props => props.theme.colors.content}
   }
@@ -48,4 +48,7 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
     font-family: inherit;
     font-size: inherit;
   }
+  .editable:empty:before {
+    content: attr(placeholder);
+}
 `;
