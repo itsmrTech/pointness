@@ -13,7 +13,7 @@ export function HomePage() {
       </Helmet>
       <Splash />
       <Content>
-        <Item />
+        <Item color={['#903AE5', '#C62727']} />
       </Content>
     </>
   );
