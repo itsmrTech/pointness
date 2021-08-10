@@ -17,14 +17,38 @@ export const Splash = memo((props: Props) => {
   const { t, i18n } = useTranslation();
 
   return (
-    <Div>
-      <Logo src={logoFile} />
-      <PointnessTitle />
-      {/*  {t(...messages.someThing())}  */}
-    </Div>
+    <Background>
+      <Div>
+        <Logo src={logoFile} />
+        <PointnessTitle />
+        {/*  {t(...messages.someThing())}  */}
+      </Div>
+    </Background>
   );
 });
+const Background = styled.div`
+  background-color: ${props => props.theme.colors.light};
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  animation-name: fadeOut;
 
+  animation-duration: 1s;
+  animation-delay: 5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+  @keyframes fadeOut {
+    from {
+    }
+    to {
+      background-color: rgba(0, 0, 0, 0);
+      display: none;
+      height: 00vh;
+    }
+  }
+`;
 const PointnessTitle = styled(Pointness)`
   animation-name: titleToNavigation;
   animation-duration: 2s;
