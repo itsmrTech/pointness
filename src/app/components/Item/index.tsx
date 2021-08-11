@@ -18,6 +18,7 @@ interface Props {
   title?: string;
   onChange: Function;
   mode?: 'first' | 'last' | 'normal';
+  indent?: number;
 }
 
 export const Item = memo((props: Props) => {
@@ -36,7 +37,7 @@ export const Item = memo((props: Props) => {
   };
   // const inputRef = useRef(null);
   return (
-    <Container>
+    <Container indent={props.indent ? props.indent : 0}>
       <Div>
         <Point
           color={props.color}
@@ -78,7 +79,9 @@ const Actions = styled.div`
   flex-direction: column;
   margin-left: 64px;
 `;
-const Container = styled.div`
+const Container = styled.div<{ indent: number }>`
+  margin-left: ${props => props.indent * 24}px;
+  min-width: 100vw;
   :hover > ${Actions} {
     display: flex;
   }
