@@ -1,3 +1,4 @@
+import { lighten } from 'polished';
 import { createGlobalStyle } from 'styled-components';
 import { ThemeType } from './themes/default';
 
@@ -50,5 +51,6 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
   }
   .editable:empty:before {
     content: attr(placeholder);
+    color:${props => lighten(0.4, props.theme.colors.content)}
 }
 `;
