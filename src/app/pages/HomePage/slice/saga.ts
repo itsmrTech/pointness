@@ -24,8 +24,17 @@ function* doUpdateItem({ payload }: PayloadAction<any>) {
   localStorage.setItem('list', JSON.stringify(items));
   return yield put(homePageActions.itemUpdated(payload.item));
 }
+function* doAddItem({ payload }: PayloadAction<any>) {
+  let items = yield getFromLocalStorage();
+  let ind = items.findIndex(a => a.id === payload.siblingid);
+  if (ind < 0) return;
+  items.splice(ind + 1, 0, { ...payload.item });
+  localStorage.setItem('list', JSON.stringify(items));
+  return yield put(homePageActions.itemAdded(items));
+}
 
 export function* homePageSaga() {
   yield takeLatest(homePageActions.getAllItems.type, doGetAllItems);
   yield takeLatest(homePageActions.updateItem.type, doUpdateItem);
+  yield takeLatest(homePageActions.addItem.type, doAddItem);
 }

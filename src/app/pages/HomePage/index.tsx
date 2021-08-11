@@ -25,10 +25,14 @@ export function HomePage() {
     dispatch(actions.getAllItems({}));
   }, []);
   useEffect(() => {
-    let elems = items.map(item => {
+    let elems = items.map((item, ind) => {
       return (
         <Item
-          onInsertBelow={() => {}}
+          key={item.id}
+          onInsertBelow={() => {
+            console.log('insert below', ind);
+            insertBelow(item.id);
+          }}
           onInsertInside={() => {}}
           color={['#903AE5', '#C62727']}
           title={item.title}
@@ -42,6 +46,7 @@ export function HomePage() {
 
     elems.push(
       <Item
+        key={id}
         onInsertBelow={() => {}}
         onInsertInside={() => {}}
         color={['#903AE5', '#C62727']}
@@ -53,6 +58,10 @@ export function HomePage() {
     return setItemsElements(elems);
   }, [items]);
 
+  const insertBelow = siblingid => {
+    let id = shortid.generate();
+    dispatch(actions.addItem({ siblingid, item: { id, title: '' } }));
+  };
   const onItemTitleChanged = (id, title) => {
     let ind = items.findIndex(a => a.id === id);
 

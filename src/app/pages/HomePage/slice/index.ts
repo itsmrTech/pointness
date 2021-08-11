@@ -22,6 +22,10 @@ const slice = createSlice({
       if (ind >= 0) state.items[ind] = action.payload;
       else state.items.push(action.payload);
     },
+    addItem(state, action: PayloadAction<any>) {},
+    itemAdded(state, action: PayloadAction<any>) {
+      state.items = action.payload;
+    },
   },
 });
 
