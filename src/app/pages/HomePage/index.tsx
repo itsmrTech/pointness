@@ -41,6 +41,7 @@ export function HomePage() {
             onItemTitleChanged(item.id, value);
           }}
           mode={'normal'}
+          indent={0}
         />
       );
     });
