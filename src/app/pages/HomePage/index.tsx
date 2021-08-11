@@ -8,11 +8,13 @@ import styled from 'styled-components';
 import { useHomePageSlice } from './slice';
 import { selectItems } from './slice/selectors';
 import shortid from 'shortid';
+import { genRandomColor, splitColor } from 'tools/color';
 
 export function HomePage() {
   const { actions } = useHomePageSlice();
   const dispatch = useDispatch();
   const items = useSelector(selectItems);
+  const [colorRange, setColorRange] = useState(genRandomColor());
   const [itemsElements, setItemsElements] = useState([
     <Item
       onInsertBelow={() => {}}
@@ -23,8 +25,10 @@ export function HomePage() {
   ]);
   useEffect(() => {
     dispatch(actions.getAllItems({}));
+    setColorRange(genRandomColor());
   }, []);
   useEffect(() => {
+    let colors = splitColor(colorRange, items.length);
     let elems = items.map((item, ind) => {
       return (
         <Item
@@ -34,25 +38,27 @@ export function HomePage() {
             insertBelow(item.id);
           }}
           onInsertInside={() => {}}
-          color={['#903AE5', '#C62727']}
+          // color={['#903AE5', '#C62727']}
+          color={colors[ind]}
           title={item.title}
           onChange={value => {
             onItemTitleChanged(item.id, value);
           }}
+          mode={'normal'}
         />
       );
     });
     let id = shortid.generate();
-
     elems.push(
       <Item
         key={id}
         onInsertBelow={() => {}}
         onInsertInside={() => {}}
-        color={['#903AE5', '#C62727']}
+        color={colors[colors.length - 1]}
         onChange={value => {
           onItemTitleChanged(id, value);
         }}
+        mode={elems.length === 0 ? 'first' : 'last'}
       />,
     );
     return setItemsElements(elems);

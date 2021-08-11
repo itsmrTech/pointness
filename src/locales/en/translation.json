@@ -1,4 +1,19 @@
 {
   "title": "welcome",
-  "ItemPlaceholder": "What is the first point of your awesome list?"
+  "firstItemPlaceholder": "What is the first point of your awesome list?",
+  "lastItemPlaceholder": [
+    "What else?",
+    "What more?",
+    "Any more idea?",
+    "Any more?",
+    "Nothing else?"
+  ],
+  "itemPlaceholder": [
+    "Unknown activity",
+    "Secret task",
+    "No one knows",
+    "No Name",
+    "Titleless",
+    "You know who"
+  ]
 }
