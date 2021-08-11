@@ -15,20 +15,20 @@ interface Props {
 export const EditableInput = memo((props: Props) => {
   const { onChange } = props;
   const inputRef = useRef<any>(null);
-  const [placeholder, setPlaceholder] = useState(false);
+  const [lastValue, setLastValue] = useState('');
   let inputChildren = React.Children.toArray(props.children);
   if (inputChildren.length > 1) {
     throw Error('No more than one children');
   }
   const onMouseUp = () => {
     const value = inputRef.current?.value || inputRef.current?.innerText;
-
-    onChange(value);
+    if (value !== lastValue) onChange(value);
+    setLastValue(value);
   };
   useEffect(() => {
     const value = inputRef.current?.value || inputRef.current?.innerText;
 
-    onChange(value);
+    // onChange(value);
   }, []);
 
   let result = React.cloneElement(inputChildren[0] as React.ReactElement<any>, {

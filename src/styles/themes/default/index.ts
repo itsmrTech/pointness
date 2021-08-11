@@ -8,7 +8,7 @@ const theme = {
     disabled_content: '#cbcbcb',
     disabled_gradient: ['#E3E3E3', '#CBCBCB'],
     neutral_dark: '#AAAAAA',
-    neutral_light: '#fafafa',
+    neutral_light: '#f0f0f0',
     light: '#fff',
     dark: '#444',
   },

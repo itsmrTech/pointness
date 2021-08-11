@@ -4,13 +4,24 @@ import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { homePageSaga } from './saga';
 import { HomePageState } from './types';
 
-export const initialState: HomePageState = {};
+export const initialState: HomePageState = {
+  items: Array(0),
+};
 
 const slice = createSlice({
   name: 'homePage',
   initialState,
   reducers: {
-    someAction(state, action: PayloadAction<any>) {},
+    getAllItems(state, action: PayloadAction<any>) {},
+    itemsFetched(state, action: PayloadAction<any>) {
+      state.items = action.payload;
+    },
+    updateItem(state, action: PayloadAction<any>) {},
+    itemUpdated(state, action: PayloadAction<any>) {
+      let ind = state.items.findIndex(a => a.id === action.payload.id);
+      if (ind >= 0) state.items[ind] = action.payload;
+      else state.items.push(action.payload);
+    },
   },
 });
 

@@ -6,3 +6,4 @@ import { initialState } from '.';
 const selectSlice = (state: RootState) => state.homePage || initialState;
 
 export const selectHomePage = createSelector([selectSlice], state => state);
+export const selectItems = createSelector([selectSlice], state => state.items);

@@ -16,7 +16,14 @@ jest.mock('react-i18next', () => ({
 
 describe('<Item  />', () => {
   it('should match snapshot', () => {
-    const loadingIndicator = render(<Item />);
+    const loadingIndicator = render(
+      <Item
+        color={['#000', '#fff']}
+        onInsertInside={() => {}}
+        onInsertBelow={() => {}}
+        onChange={() => {}}
+      />,
+    );
     expect(loadingIndicator.container.firstChild).toMatchSnapshot();
   });
 });

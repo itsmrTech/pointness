@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
-import { Point } from '..';
+import { ButtonAction } from '..';
 
-describe('<Point  />', () => {
+describe('<ButtonAction  />', () => {
   it('should match snapshot', () => {
-    const loadingIndicator = render(<Point color={['#000', '#fff']} />);
+    const loadingIndicator = render(<ButtonAction title={'title'} />);
     expect(loadingIndicator.container.firstChild).toMatchSnapshot();
   });
 });
