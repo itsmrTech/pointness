@@ -40,6 +40,7 @@ export function HomePage() {
           onChange={value => {
             onItemTitleChanged(item.id, value);
           }}
+          mode={'normal'}
         />
       );
     });
@@ -52,6 +53,7 @@ export function HomePage() {
         onChange={value => {
           onItemTitleChanged(id, value);
         }}
+        mode={elems.length === 0 ? 'first' : 'last'}
       />,
     );
     return setItemsElements(elems);

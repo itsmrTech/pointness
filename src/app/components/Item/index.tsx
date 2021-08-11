@@ -17,13 +17,23 @@ interface Props {
   onInsertInside: Function;
   title?: string;
   onChange: Function;
+  mode?: 'first' | 'last' | 'normal';
 }
 
 export const Item = memo((props: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { t, i18n } = useTranslation();
   const [title, setTitle] = useState('');
-
+  const detectPlaceholder = mode => {
+    switch (mode) {
+      case 'first':
+        return t(...messages.firstItemPlaceholder());
+      case 'last':
+        return t(...messages.lastItemPlaceholder());
+      default:
+        return t(...messages.placeholder());
+    }
+  };
   // const inputRef = useRef(null);
   return (
     <Container>
@@ -40,7 +50,7 @@ export const Item = memo((props: Props) => {
             props.onChange(value);
             // console.log(inputRef.current.innerHTML);
           }}
-          placeholder={t(...messages.placeholder())}
+          placeholder={detectPlaceholder(props.mode)}
           defaultValue={props.title}
         >
           <Input></Input>
