@@ -10,12 +10,18 @@ interface Props {
   children: React.ReactNode;
   onChange: Function;
   placeholder: string;
+  defaultValue?: string;
 }
 
 export const EditableInput = memo((props: Props) => {
   const { onChange } = props;
   const inputRef = useRef<any>(null);
   const [lastValue, setLastValue] = useState('');
+  const [defaultValue, setDefaultValue] = useState('');
+  useEffect(() => {
+    if (defaultValue.length === 0 && lastValue.length === 0)
+      setDefaultValue(props.defaultValue ? props.defaultValue : '');
+  }, [defaultValue.length, lastValue.length, props.defaultValue]);
   let inputChildren = React.Children.toArray(props.children);
   if (inputChildren.length > 1) {
     throw Error('No more than one children');
@@ -38,6 +44,7 @@ export const EditableInput = memo((props: Props) => {
     onKeyUp: onMouseUp,
     placeholder: props.placeholder,
     className: 'editable',
+    children: defaultValue,
   });
   return <Fragment>{result}</Fragment>;
 });

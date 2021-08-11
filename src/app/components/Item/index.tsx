@@ -3,7 +3,7 @@
  * Item
  *
  */
-import React, { Fragment, memo, useRef, useState } from 'react';
+import React, { Fragment, memo, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
 import { messages } from './messages';
@@ -23,11 +23,15 @@ export const Item = memo((props: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { t, i18n } = useTranslation();
   const [title, setTitle] = useState('');
+
   // const inputRef = useRef(null);
   return (
     <Container>
       <Div>
-        <Point color={props.color} disabled={title?.length === 0} />
+        <Point
+          color={props.color}
+          disabled={props.title === undefined || props.title.length === 0}
+        />
         {/* {t('')} */}
         <EditableInput
           onChange={value => {
@@ -37,6 +41,7 @@ export const Item = memo((props: Props) => {
             // console.log(inputRef.current.innerHTML);
           }}
           placeholder={t(...messages.placeholder())}
+          defaultValue={props.title}
         >
           <Input></Input>
         </EditableInput>

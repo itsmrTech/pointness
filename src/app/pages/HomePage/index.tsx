@@ -57,7 +57,7 @@ export function HomePage() {
     let ind = items.findIndex(a => a.id === id);
 
     let item = {};
-    if (ind >= 0) item = { ...items[ind] };
+    if (ind >= 0) item = { ...items[ind], title };
     else item = { id, title };
     dispatch(actions.updateItem({ item }));
   };
