@@ -28,13 +28,25 @@ export function HomePage() {
     setColorRange(genRandomColor());
   }, []);
   useEffect(() => {
-    let colors = splitColor(colorRange, items.length);
-    let elems = items.map((item, ind) => {
+    let elems = printList(items, undefined, colorRange);
+    return setItemsElements(elems);
+  }, [items]);
+  const printList = (
+    items,
+    parentid,
+    colorRange,
+    indent = 0,
+    options = { addInput: true },
+  ) => {
+    if (options.addInput === undefined) options.addInput = true;
+    let selectedItems = items.filter(item => item.parentid === parentid);
+    let colors = splitColor(colorRange, selectedItems.length);
+    let elems = selectedItems.map((item, ind) => {
       return (
         <Item
           key={item.id}
           onInsertBelow={() => {
-            insertBelow(item.id);
+            insertBelow(item.id, item.parentid);
           }}
           onInsertInside={() => {
             insertInside(item.id);
@@ -46,29 +58,34 @@ export function HomePage() {
             onItemTitleChanged(item.id, value);
           }}
           mode={'normal'}
-          indent={0}
-        />
+          indent={indent}
+        >
+          {printList(items, item.id, colors[ind], indent + 1, {
+            addInput: false,
+          })}
+        </Item>
       );
     });
+    if (options.addInput) {
+      let id = shortid.generate();
+      elems.push(
+        <Item
+          key={id}
+          onInsertBelow={() => {}}
+          onInsertInside={() => {}}
+          color={colors[colors.length - 1]}
+          onChange={value => {
+            onItemTitleChanged(id, value);
+          }}
+          mode={elems.length === 0 ? 'first' : 'last'}
+        />,
+      );
+    }
+    return elems;
+  };
+  const insertBelow = (siblingid, parentid) => {
     let id = shortid.generate();
-    elems.push(
-      <Item
-        key={id}
-        onInsertBelow={() => {}}
-        onInsertInside={() => {}}
-        color={colors[colors.length - 1]}
-        onChange={value => {
-          onItemTitleChanged(id, value);
-        }}
-        mode={elems.length === 0 ? 'first' : 'last'}
-      />,
-    );
-    return setItemsElements(elems);
-  }, [items]);
-
-  const insertBelow = siblingid => {
-    let id = shortid.generate();
-    dispatch(actions.addItem({ siblingid, item: { id, title: '' } }));
+    dispatch(actions.addItem({ siblingid, item: { id, title: '', parentid } }));
   };
   const insertInside = parentid => {
     let id = shortid.generate();

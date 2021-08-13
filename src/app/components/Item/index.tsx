@@ -19,6 +19,7 @@ interface Props {
   onChange: Function;
   mode?: 'first' | 'last' | 'normal';
   indent?: number;
+  children?: any;
 }
 
 export const Item = memo((props: Props) => {
@@ -37,41 +38,44 @@ export const Item = memo((props: Props) => {
   };
   // const inputRef = useRef(null);
   return (
-    <Container indent={props.indent ? props.indent : 0}>
-      <Div>
-        <Point
-          color={props.color}
-          disabled={props.title === undefined || props.title.length === 0}
-        />
-        {/* {t('')} */}
-        <EditableInput
-          onChange={value => {
-            console.log(value);
-            setTitle(value);
-            props.onChange(value);
-            // console.log(inputRef.current.innerHTML);
-          }}
-          placeholder={detectPlaceholder(props.mode)}
-          defaultValue={props.title}
-        >
-          <Input></Input>
-        </EditableInput>
-      </Div>
-      <Actions>
-        <ButtonAction
-          onClick={() => {
-            props.onInsertBelow();
-          }}
-          title={'Insert Below'}
-        />
-        <ButtonAction
-          onClick={() => {
-            props.onInsertInside();
-          }}
-          title={'Insert Inside'}
-        />
-      </Actions>
-    </Container>
+    <Fragment>
+      <Container indent={props.indent ? props.indent : 0}>
+        <Div>
+          <Point
+            color={props.color}
+            disabled={props.title === undefined || props.title.length === 0}
+          />
+          {/* {t('')} */}
+          <EditableInput
+            onChange={value => {
+              console.log(value);
+              setTitle(value);
+              props.onChange(value);
+              // console.log(inputRef.current.innerHTML);
+            }}
+            placeholder={detectPlaceholder(props.mode)}
+            defaultValue={props.title}
+          >
+            <Input></Input>
+          </EditableInput>
+        </Div>
+        <Actions>
+          <ButtonAction
+            onClick={() => {
+              props.onInsertBelow();
+            }}
+            title={'Insert Below'}
+          />
+          <ButtonAction
+            onClick={() => {
+              props.onInsertInside();
+            }}
+            title={'Insert Inside'}
+          />
+        </Actions>
+      </Container>
+      {props.children}
+    </Fragment>
   );
 });
 const Actions = styled.div`
