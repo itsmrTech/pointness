@@ -27,8 +27,9 @@ function* doUpdateItem({ payload }: PayloadAction<any>) {
 function* doAddItem({ payload }: PayloadAction<any>) {
   let items = yield getFromLocalStorage();
   let ind = items.findIndex(a => a.id === payload.siblingid);
-  if (ind < 0) return;
-  items.splice(ind + 1, 0, { ...payload.item });
+  if (ind >= 0) {
+    items.splice(ind + 1, 0, { ...payload.item });
+  } else items.push({ ...payload.item });
   localStorage.setItem('list', JSON.stringify(items));
   return yield put(homePageActions.itemAdded(items));
 }

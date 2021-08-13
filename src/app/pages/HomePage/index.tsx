@@ -34,10 +34,11 @@ export function HomePage() {
         <Item
           key={item.id}
           onInsertBelow={() => {
-            console.log('insert below', ind);
             insertBelow(item.id);
           }}
-          onInsertInside={() => {}}
+          onInsertInside={() => {
+            insertInside(item.id);
+          }}
           // color={['#903AE5', '#C62727']}
           color={colors[ind]}
           title={item.title}
@@ -68,6 +69,10 @@ export function HomePage() {
   const insertBelow = siblingid => {
     let id = shortid.generate();
     dispatch(actions.addItem({ siblingid, item: { id, title: '' } }));
+  };
+  const insertInside = parentid => {
+    let id = shortid.generate();
+    dispatch(actions.addItem({ item: { id, title: '', parentid } }));
   };
   const onItemTitleChanged = (id, title) => {
     let ind = items.findIndex(a => a.id === id);
